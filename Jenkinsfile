@@ -53,6 +53,8 @@ pipeline {
                 script {
                     echo "pushing to github"
                     withCredentials([usernamePassword(credentialsId: 'github-creds', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'git config --global user.email "ajordanr@protonmail.com"'
+                        sh 'git config --global user.name "Adam"'
                         sh 'git remote set-url origin https://${USER}:${PASS}@github.com/analystrusso/java-maven-app.git'
                         sh 'git add .'
                         sh 'git commit -m "ci:version bump"'

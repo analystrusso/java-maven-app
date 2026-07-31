@@ -51,6 +51,7 @@ pipeline {
         stage("commit version update") {
             steps {
                 script {
+                    echo "pushing to github"
                     withCredentials([usernamePassword(credentialsId: 'github-creds', passwordVariable: 'PASS', usernameVariable: 'USER')])
                         sh 'git remote set-url origin https://${USER}:${PASS}@github.com/analystrusso/java-maven-app.git'
                         sh 'git add .'

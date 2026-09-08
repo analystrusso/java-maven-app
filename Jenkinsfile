@@ -63,10 +63,10 @@ pipeline {
                         sh 'git add .'
                         sh 'git diff --cached --quiet || git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:main'
+                        }    
                     }
-                        
                 }
             }
         }
-    }
-} 
+    } 
+}

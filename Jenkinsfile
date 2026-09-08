@@ -59,9 +59,10 @@ pipeline {
                         sh 'git status'
                         sh 'git branch'
                         sh 'git config --list'
-
-                        sh 'git remote set-url origin https://${USER}:${PASS}@github.com/analystrusso/java-maven-app.git'
-                        sh "git checkout -B main"
+                        sh 'mkdir -p ~/.ssh'
+                        sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
+                        sh 'git remote set-url origin git@github.com:analystrusso/java-maven-app.git'
+                
                         sh "git fetch origin main"
                         sh 'git add .'
                         sh 'git commit -m "ci:version bump"'

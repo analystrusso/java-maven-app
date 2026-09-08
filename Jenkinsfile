@@ -55,7 +55,7 @@ pipeline {
                     sh 'git config --global user.email "ajordanr@protonmail.com"'
                     sh 'git config --global user.name "Adam"'
         
-                    sshagent(credentials: ['github-token']) {
+                    sshagent(credentials: ['github-key']) {
                         sh 'git remote set-url origin git@github.com:analystrusso/java-maven-app.git'
                         sh 'git add .'
                         sh 'git diff --cached --quiet || git commit -m "ci: version bump"'

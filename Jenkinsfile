@@ -56,6 +56,7 @@ pipeline {
                     sh 'git config --global user.name "Adam"'
         
                     sshagent(credentials: ['github-key']) {
+                        sh 'mkdir -p ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
                         sh 'git remote set-url origin git@github.com:analystrusso/java-maven-app.git'
                         sh 'git add .'
                         sh 'git diff --cached --quiet || git commit -m "ci: version bump"'

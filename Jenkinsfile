@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     echo "pushing to github..."
-                    withCredentials([usernamePassword(credentialsId: 'github-key', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'github-creds', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh '''
                             git remote set-url origin https://${USER}:${PASS}@github.com/analystrusso/java-maven-app.git
                             git add pom.xml

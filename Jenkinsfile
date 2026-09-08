@@ -48,24 +48,21 @@ pipeline {
             }
         }
 
-        stage("commit version update") {
+         stage("commit version update") {
             steps {
                 script {
                     echo "pushing to github..."
-                    sh 'git config --global user.email "ajordanr@protonmail.com"'
-                    sh 'git config --global user.name "Adam"'
-        
-                    sshagent(credentials: ['github-key']) {
-                        sh 'mkdir -p ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
-                        sh 'git remote set-url origin git@github.com:analystrusso/java-maven-app.git'
-                        sh 'git fetch origin main'
-                        sh 'git checkout -B main origin/main'
-                        sh 'git add .'
-                        sh 'git diff --cached --quiet || git commit -m "ci: version bump"'
-                        sh 'git push origin HEAD:main'
-                        }
+                    withCredentials([usernamePassword(credentialsId: 'github-key', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh '''
+                            git remote set-url origin https://${USER}:${PASS}@github.com/analystrusso/java-maven-app.git
+                            git add pom.xml
+                            git diff --cached --quiet || git commit -m "ci: version bump [skip ci]"
+                            git fetch origin main
+                            git push origin HEAD:main
+                        '''
                     }
                 }
             }
-        } 
-    }
+        }
+    } 
+}

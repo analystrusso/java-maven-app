@@ -58,7 +58,8 @@ pipeline {
                     sshagent(credentials: ['github-key']) {
                         sh 'mkdir -p ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
                         sh 'git remote set-url origin git@github.com:analystrusso/java-maven-app.git'
-                        sh 'git pull origin jenkins-jobs'
+                        sh 'git fetch origin main'
+                        sh 'git checkout -B main origin/main'
                         sh 'git add .'
                         sh 'git diff --cached --quiet || git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:main'

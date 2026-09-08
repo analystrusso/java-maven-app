@@ -52,18 +52,15 @@ pipeline {
             steps {
                 script {
                     echo "pushing to github..."
-                    withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'git config --global user.email "ajordanr@protonmail.com"'
-                        sh 'git config --global user.name "Adam"'
-                        sh 'git status'
-                        sh 'git config --list'
-                        
-                        sshagent(credentials: ['github-token']) {
+                    sh 'git config --global user.email "ajordanr@protonmail.com"'
+                    sh 'git config --global user.name "Adam"'
+        
+                    sshagent(credentials: ['github-ssh-key']) {
                         sh 'git remote set-url origin git@github.com:analystrusso/java-maven-app.git'
                         sh 'git add .'
                         sh 'git diff --cached --quiet || git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:main'
-                        }    
+                        }
                     }
                 }
             }

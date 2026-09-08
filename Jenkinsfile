@@ -60,6 +60,7 @@ pipeline {
                             git add pom.xml
                             git diff --cached --quiet || git commit -m "ci: version bump [skip ci]"
                             git fetch origin main
+                            git pull origin main
                             git push origin HEAD:main
                         '''
                     }

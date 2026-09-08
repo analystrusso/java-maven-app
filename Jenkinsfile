@@ -58,7 +58,7 @@ pipeline {
                         sh 'git status'
                         sh 'git config --list'
                         
-                        sshagent(credentials: ['github-ssh-key']) {
+                        sshagent(credentials: ['github-token']) {
                         sh 'git remote set-url origin git@github.com:analystrusso/java-maven-app.git'
                         sh 'git add .'
                         sh 'git diff --cached --quiet || git commit -m "ci: version bump"'

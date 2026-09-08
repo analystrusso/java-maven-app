@@ -48,7 +48,7 @@ pipeline {
             }
         }
 
-        stage("commit version update") {
+         stage("commit version update") {
             steps {
                 script {
                     echo "pushing to github..."
@@ -66,5 +66,5 @@ pipeline {
                 }
             }
         }
-    }
-} 
+    } 
+}

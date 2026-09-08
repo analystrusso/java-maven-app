@@ -52,9 +52,11 @@ pipeline {
             steps {
                 script {
                     echo "pushing to github..."
-                    withCredentials([usernamePassword(credentialsId: 'github-creds', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    sshagent(credentials: ['github-key']) {
                         sh '''
-                            git remote set-url origin https://${USER}:${PASS}@github.com/analystrusso/java-maven-app.git
+                            mkdir -p ~/.ssh
+                            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+                            git remote set-url origin git@github.com:analystrusso/java-maven-app.git
                             git add pom.xml
                             git diff --cached --quiet || git commit -m "ci: version bump [skip ci]"
                             git fetch origin main

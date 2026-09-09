@@ -53,7 +53,7 @@ pipeline {
                         aws sts get-caller-identity
 
                         echo "== configure kubeconfig for this identity =="
-                        aws eks update-kubeconfig --name <YOUR_CLUSTER_NAME> --region <YOUR_REGION>
+                        aws eks update-kubeconfig --name "demo-cluster" --region "us-east-1"
 
                         echo "== can I do anything at all =="
                         kubectl auth can-i create deployments -v=8

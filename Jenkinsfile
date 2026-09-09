@@ -48,6 +48,16 @@ pipeline {
             steps {
                 script {
                     echo "deploying app..."
+                    sh '''
+                        echo "== who am I in AWS =="
+                        aws sts get-caller-identity
+
+                        echo "== configure kubeconfig for this identity =="
+                        aws eks update-kubeconfig --name <YOUR_CLUSTER_NAME> --region <YOUR_REGION>
+
+                        echo "== can I do anything at all =="
+                        kubectl auth can-i create deployments -v=8
+                    '''
                     sh 'kubectl create deployment nginx-deployment --image=nginx'
                 }
             }

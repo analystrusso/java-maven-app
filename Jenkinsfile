@@ -48,17 +48,6 @@ pipeline {
             steps {
                 script {
                     echo "deploying app..."
-                    sh '''
-                        if ! command -v aws &> /dev/null; then
-                            curl -sSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
-                            unzip -q awscliv2.zip
-                            ./aws/install --install-dir /tmp/aws-cli --bin-dir /tmp/aws-cli/bin
-                            export PATH=/tmp/aws-cli/bin:$PATH
-                        fi
-                        aws sts get-caller-identity
-                        aws eks update-kubeconfig --name demo-cluster --region us-east-1
-                        kubectl auth can-i create deployments
-                    '''
                     sh 'kubectl create deployment nginx-deployment --image=nginx'
                 }
             }

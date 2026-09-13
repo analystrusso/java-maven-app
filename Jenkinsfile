@@ -5,6 +5,9 @@ pipeline {
     tools {
         maven 'maven-3.9'
     }
+    environment {
+        DOCKER_REPO = '736956442401.dkr.ecr.us-east-1.amazonaws.com/js-app'
+    }
     stages {
         stage('increment version') {
             steps {

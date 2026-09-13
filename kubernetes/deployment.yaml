@@ -14,6 +14,8 @@ spec:
       labels:
         app: $APP_NAME
     spec:
+      imagePullSecrets:
+        - name: my-registry-key
       containers:
         - name: $APP_NAME
           image: 736956442401.dkr.ecr.us-east-1.amazonaws.com:$IMAGE_NAME
